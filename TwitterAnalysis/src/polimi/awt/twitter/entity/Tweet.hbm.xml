@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 10, 2013 6:37:02 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="Tweet" table="Tweet" catalog="DBawtTwitter">
+        <id name="idTweet" type="java.lang.Integer">
+            <column name="idTweet" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="que" class="Que" fetch="select">
+            <column name="idQue" not-null="true" />
+        </many-to-one>
+        <property name="date" type="timestamp">
+            <column name="Date" length="19" not-null="true" />
+        </property>
+        <property name="day" type="int">
+            <column name="Day" not-null="true" />
+        </property>
+        <property name="hour" type="int">
+            <column name="Hour" not-null="true" />
+        </property>
+        <property name="minute" type="int">
+            <column name="Minute" not-null="true" />
+        </property>
+        <property name="month" type="int">
+            <column name="Month" not-null="true" />
+        </property>
+        <property name="tweetText" type="string">
+            <column name="TweetText" length="45" />
+        </property>
+        <property name="year" type="int">
+            <column name="Year" not-null="true" />
+        </property>
+        <property name="author" type="string">
+            <column name="author" length="45" not-null="true" />
+        </property>
+        <property name="geoLocation" type="string">
+            <column name="geoLocation" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

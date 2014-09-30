@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 31, 2013 2:46:41 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="Query" table="Query" catalog="twitterDB">
+        <id name="idQuery" type="java.lang.Integer">
+            <column name="idQuery" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="campaign" class="Campaign" fetch="select">
+            <column name="idCampaign" not-null="true" />
+        </many-to-one>
+        <property name="queryText" type="string">
+            <column name="QueryText" length="45" />
+        </property>
+        <set name="tweets" table="Tweet" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idQuery" not-null="true" />
+            </key>
+            <one-to-many class="Tweet" />
+        </set>
+    </class>
+</hibernate-mapping>

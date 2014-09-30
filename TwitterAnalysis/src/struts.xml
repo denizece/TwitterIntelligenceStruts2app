@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="sign" namespace="/" extends="struts-default">
+		<action name="getSignUp" class="polimi.awt.twitter.action.SignUpAction" method="display">
+			<result name="success">/signUp.jsp</result>
+		</action>
+		<action name="getSignUpResult" class="polimi.awt.twitter.action.SignUpAction">
+			<result name="success">/login.jsp</result>
+			<result name="input">/signUp.jsp</result>
+		</action>	
+	</package>
+
+	<package name="login" namespace="/" extends="struts-default">
+		<action name="getLogin" class="polimi.awt.twitter.action.LoginAction">
+			<result name="login">/login.jsp</result>
+			<result name="input">/login.jsp</result>
+			<result name="Manager" type="redirect">getCampaignSelect?idUser=${user.idUser}</result>
+			<result name="Employee" type="redirect">getEmpCampaignSelect?idUser=${user.idUser}</result>
+		</action>
+	</package>
+	
+	<package name="Query" namespace="/" extends="struts-default">
+	
+		<action name="getQueryCreate" class="polimi.awt.twitter.action.QueryAction" method="createNew">
+			<result name="success" type="redirect">getQueryExecute?idCampaign=${idCampaign}</result>
+			<result name="error">/QueryFailure.jsp</result>
+		</action>
+		
+		<action name="deleteQueryCreate" class="polimi.awt.twitter.action.QueryAction" method="deleteQuery">
+			<result name="success" type="redirect">getQueryExecute?idCampaign=${idCampaign}</result>
+		</action>
+		<action name="getQueryGeoLocMap" class="polimi.awt.twitter.action.QueryAction" method="getqQueryGeoLocMap">
+			<result name="success">geoLocMap.jsp</result>
+		</action>
+		
+		<action name="getQueryExecute" class="polimi.awt.twitter.action.QueryAction" method="selectQuery" >
+			<result name="success">/queryExecute.jsp</result>
+		</action>
+		<action name="getQueryExecuteEmp" class="polimi.awt.twitter.action.QueryAction" method="selectQuery" >
+				<result name="success">/emp_queryExecute.jsp</result>
+		</action>
+		
+		<action name="getQuerySelected" class="polimi.awt.twitter.action.QueryAction">
+			<result name="success">/queryExecuteResult.jsp</result>
+		</action>
+				
+		<action name="preQueryCreate" class="polimi.awt.twitter.action.QueryAction" method="loadQuery">
+			<result name="success">/searchForm.jsp</result>
+		</action>
+
+		
+	</package>
+	
+	<package name="campaignCS" namespace="/" extends="struts-default">
+		<action name="getCampaignCreate" class="polimi.awt.twitter.action.CampaignAction" method="create">
+			<result name="success">/managerHome.jsp</result>
+			<result name="input">/createCampaign.jsp</result>
+		</action>
+		<action name="preCampaignCreate" class="polimi.awt.twitter.action.CampaignAction" method="loadCreate">
+			<result name="success">/createCampaign.jsp</result>
+		</action>
+		<action name="preAddEmployerCampaign" class="polimi.awt.twitter.action.CampaignAction" method="loadEmpCampaignAdd">
+			<result name="success">/addEmployerCampaign.jsp</result>
+		</action>
+		
+		
+		
+		
+		<action name="getCampaignSelect" class="polimi.awt.twitter.action.CampaignAction" method="select">
+			<result name="success">/managerHome.jsp</result>
+		</action>
+		<action name="getEmpCampaignSelect" class="polimi.awt.twitter.action.CampaignAction" method="emp_select">
+			<result name="success">/employeeHome.jsp</result>
+		</action>
+		<action name="getCampaignSelected" class="polimi.awt.twitter.action.CampaignAction">
+			<result name="Manager_success" type="redirect">getQueryExecute?idCampaign=${selectedCampaign}</result>
+			<result name="Employee_success" type="redirect">getQueryExecuteEmp?idCampaign=${selectedCampaign}</result>
+		</action>
+		<action name="getEmployerCampaignSelected" class="polimi.awt.twitter.action.CampaignAction" method="employer_add">
+			<result name="success" type="redirect">getEmpCampaignSelect?idUser=${idUser}</result>
+		</action>
+		
+	</package>
+</struts>

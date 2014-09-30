@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 10, 2013 6:37:02 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="User" table="User" catalog="DBawtTwitter">
+        <id name="idUser" type="java.lang.Integer">
+            <column name="idUser" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userType" class="UserType" fetch="select">
+            <column name="idUserType" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="Name" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="Password" length="45" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="45" />
+        </property>
+        <set name="campaigns" table="Campaign" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idUser" not-null="true" />
+            </key>
+            <one-to-many class="Campaign" />
+        </set>
+        <set name="campaigns_1" table="CampaignEmployee" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="EmployerID" not-null="true" />
+            </key>
+            <many-to-many entity-name="Campaign">
+                <column name="CampaignID" not-null="true" unique="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
